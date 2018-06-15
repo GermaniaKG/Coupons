@@ -14,7 +14,7 @@ $ composer require germania-kg/coupons
 ### Grab Repo
 
 ```bash
-$ git clone git@bitbucket.org:germania/coupons.git
+$ git clone git@bitbucket.org:germania-kg/coupons.git
 ```
 
 ### Testing
