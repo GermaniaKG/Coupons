@@ -51,13 +51,13 @@ class PdoCouponSheetFactory
      */
     public function __invoke( $id, $php_class = null )
     {
-        if (!$stmt->execute([
+        if (!$this->stmt->execute([
             'id' => $id
         ])) {
             throw new \RuntimeException("Could not execute PDOStatement.");
         }
 
-        return $stmt->fetch(\PDO::FETCH_CLASS, $php_class ?: $this->php_class);
+        return $this->stmt->fetch(\PDO::FETCH_CLASS, $php_class ?: $this->php_class);
     }
 
 }
