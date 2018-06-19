@@ -36,11 +36,12 @@ class PdoCouponsFactory
         WHERE coupon_sheet_id = :sheet_id";
 
         $this->stmt = $pdo->prepare( $sql );
+        $this->stmt->setFetchMode( \PDO::FETCH_CLASS, $this->php_class );
 
     }
 
 
-    public function __invoke( $sheet_id, $php_class = null )
+    public function __invoke( $sheet_id )
     {
         if ($sheet_id instanceOf CouponSheetInterface)
             $sheet_id = $sheet_id->getId();
@@ -50,8 +51,7 @@ class PdoCouponsFactory
         ])) {
             throw new \RuntimeException("Could not execute PDOStatement.");
         }
-
-        return $this->stmt->fetchAll(\PDO::FETCH_CLASS | \PDO::FETCH_UNIQUE, $php_class ?: $this->php_class );
+        return $this->stmt->fetchAll(\PDO::FETCH_UNIQUE );
 
     }
 
