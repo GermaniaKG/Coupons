@@ -26,10 +26,12 @@
 	},
 
 	"suggest": {
-		"pimple/pimple": "The Dependecy Injection Container of choice"
+		"pimple/pimple": "The Dependecy Injection Container of choice",
+		"psr/container": "PSR Container"
 	},
 
 	"require-dev": {
+		"psr/container": "^1.0",
 		"php-coveralls/php-coveralls": "^2.0",
 		"phpunit/phpunit": "^5.7|^6.0"
 	}
