@@ -45,13 +45,13 @@ class PdoCouponsFactory
         if ($sheet_id instanceOf CouponSheetInterface)
             $sheet_id = $sheet_id->getId();
 
-        if (!$stmt->execute([
+        if (!$this->stmt->execute([
             'sheet_id' => $sheet_id
         ])) {
             throw new \RuntimeException("Could not execute PDOStatement.");
         }
 
-        return $stmt->fetchAll(\PDO::FETCH_CLASS | \PDO::FETCH_UNIQUE, $php_class ?: $this->php_class );
+        return $this->stmt->fetchAll(\PDO::FETCH_CLASS | \PDO::FETCH_UNIQUE, $php_class ?: $this->php_class );
 
     }
 
