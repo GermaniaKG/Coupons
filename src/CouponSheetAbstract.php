@@ -100,7 +100,7 @@ class CouponSheetAbstract implements CouponSheetInterface
             return false;
 
         // is valid_from in future?
-        if ( mktime() < $valid_from->getTimestamp())
+        if ( time() < $valid_from->getTimestamp())
             return false;
 
         // So there's only to check if expired.
@@ -119,7 +119,7 @@ class CouponSheetAbstract implements CouponSheetInterface
         or  !$valid_until instanceOf \DateTimeInterface)
             return false;
 
-        return (mktime() > $valid_until->getTimestamp() );
+        return (time() > $valid_until->getTimestamp() );
     }
 
 
