@@ -50,7 +50,7 @@ class PdoAllCouponSheets implements \Countable, \IteratorAggregate
      */
     public function getIterator()
     {
-        return new ArrayIterator( $this->coupon_sheets);
+        return new \ArrayIterator( $this->coupon_sheets);
     }
 }
 
