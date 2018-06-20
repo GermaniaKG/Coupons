@@ -20,6 +20,21 @@ class PdoCouponFactory
      */
     public $stmt;
 
+
+    /**
+     * @var string[]
+     */
+    protected static $coupon_fields_default = array(
+        'id',
+        'code',
+        'coupon_sheet_id AS coupon_sheet',
+    );
+
+    /**
+     * @var string[]
+     */
+    public static $coupon_fields = array();
+
     /**
      * @param \PDO   $pdo
      * @param string $coupons_table
@@ -34,11 +49,10 @@ class PdoCouponFactory
         if (!is_subclass_of($this->php_class, CouponInterface::class ))
             throw new \InvalidArgumentException("Class name or instance of CouponInterface expected.");
 
-        $sql = "SELECT
-        id,
-        code,
-        coupon_sheet_id AS coupon_sheet
+        $sql_fields = join(",", array_merge(static::$coupon_fields_default, static::$coupon_fields));
 
+        $sql = "SELECT
+        {$sql_fields}
         FROM `{$coupons_table}`
 
         WHERE code = :code
