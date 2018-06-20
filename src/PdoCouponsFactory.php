@@ -24,6 +24,9 @@ class PdoCouponsFactory
     {
         $this->php_class = $php_class ?: Coupon::class;
 
+        if (!is_subclass_of($this->php_class, CouponInterface::class ))
+            throw new \InvalidArgumentException("Class name or instance of CouponInterface expected.");
+
         $sql = "SELECT
         -- id field twice here due to FETCH_UNIQUE
         id,
@@ -40,7 +43,10 @@ class PdoCouponsFactory
 
     }
 
-
+    /**
+     * @param  int|CouponSheetInterface $sheet_id
+     * @return CouponInterface[]
+     */
     public function __invoke( $sheet_id )
     {
         if ($sheet_id instanceOf CouponSheetInterface)
