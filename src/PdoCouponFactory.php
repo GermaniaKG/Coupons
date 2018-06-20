@@ -28,6 +28,7 @@ class PdoCouponFactory
      */
     public function __construct( \PDO $pdo, $coupons_table, callable $coupon_sheet_factory, $php_class = null)
     {
+        $this->coupon_sheet_factory = $coupon_sheet_factory;
         $this->php_class = $php_class ?: Coupon::class;
 
         if (!is_subclass_of($this->php_class, CouponInterface::class ))
