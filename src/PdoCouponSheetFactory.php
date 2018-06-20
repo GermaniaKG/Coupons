@@ -44,15 +44,15 @@ class PdoCouponSheetFactory
         LIMIT 1";
 
         $this->stmt = $pdo->prepare( $sql );
+        $this->stmt->setFetchMode( \PDO::FETCH_CLASS, $this->php_class );
 
     }
 
     /**
      * @param  string|int $id
-     * @param  string $php_class
      * @return CouponSheet|null
      */
-    public function __invoke( $id, $php_class = null )
+    public function __invoke( $id )
     {
         if (!$this->stmt->execute([
             'id' => $id
@@ -60,7 +60,7 @@ class PdoCouponSheetFactory
             throw new \RuntimeException("Could not execute PDOStatement.");
         }
 
-        return $this->stmt->fetch(\PDO::FETCH_CLASS, $php_class ?: $this->php_class);
+        return $this->stmt->fetch();
     }
 
 }
