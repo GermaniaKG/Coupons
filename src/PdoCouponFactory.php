@@ -1,13 +1,18 @@
 <?php
 namespace Germania\Coupons;
 
-class PdoCouponsFactory
+class PdoCouponFactory
 {
 
     /**
      * @var string
      */
     public $php_class;
+
+    /**
+     * @var callable
+     */
+    public $coupon_sheet_factory;
 
 
     /**
@@ -18,9 +23,10 @@ class PdoCouponsFactory
     /**
      * @param \PDO   $pdo
      * @param string $coupons_table
+     * @param callable $coupon_sheet_factory
      * @param string $php_class
      */
-    public function __construct( \PDO $pdo, $coupons_table, $php_class = null)
+    public function __construct( \PDO $pdo, $coupons_table, callable $coupon_sheet_factory, $php_class = null)
     {
         $this->php_class = $php_class ?: Coupon::class;
 
@@ -28,15 +34,14 @@ class PdoCouponsFactory
             throw new \InvalidArgumentException("Class name or instance of CouponInterface expected.");
 
         $sql = "SELECT
-        -- id field twice here due to FETCH_UNIQUE
-        id,
         id,
         code,
-        coupon_sheet_id
+        coupon_sheet
 
         FROM `{$coupons_table}`
 
-        WHERE coupon_sheet_id = :sheet_id";
+        WHERE code = :code
+        LIMIT 1";
 
         $this->stmt = $pdo->prepare( $sql );
         $this->stmt->setFetchMode( \PDO::FETCH_CLASS, $this->php_class );
@@ -44,21 +49,28 @@ class PdoCouponsFactory
     }
 
     /**
-     * @param  int|CouponSheetInterface $sheet_id
+     * @param  string|CouponInterface $code
      * @return CouponInterface[]
      */
-    public function __invoke( $sheet_id )
+    public function __invoke( $code )
     {
-        if ($sheet_id instanceOf CouponSheetInterface)
-            $sheet_id = $sheet_id->getId();
+        if ($code instanceOf CouponInterface)
+            $code = $code->getCode();
 
         if (!$this->stmt->execute([
-            'sheet_id' => $sheet_id
+            'code' => $code
         ])) {
             throw new \RuntimeException("Could not execute PDOStatement.");
         }
-        return $this->stmt->fetchAll(\PDO::FETCH_UNIQUE );
 
+        $coupon = $this->stmt->fetch();
+
+        if ($coupon and $this->coupon_sheet_factory):
+            $coupon_sheet_factory = $this->coupon_sheet_factory;
+            $coupon->coupon_sheet = $coupon_sheet_factory( $coupon->coupon_sheet );
+        endif;
+
+        return $coupon;
     }
 
 }

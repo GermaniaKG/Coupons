@@ -24,6 +24,9 @@ class PdoCouponSheetFactory
     {
         $this->php_class = $php_class ?: CouponSheet::class;
 
+        if (!is_subclass_of($this->php_class, CouponSheetInterface::class ))
+            throw new \InvalidArgumentException("Class name or instance of CouponSheetInterface expected.");
+
         $sql = "SELECT
         Sheets.id,
         Sheets.slug,
