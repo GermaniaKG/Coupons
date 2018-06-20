@@ -36,7 +36,7 @@ class PdoCouponFactory
         $sql = "SELECT
         id,
         code,
-        coupon_sheet
+        coupon_sheet_id AS coupon_sheet
 
         FROM `{$coupons_table}`
 
