@@ -15,6 +15,16 @@ class CouponSheet extends CouponSheetAbstract implements CouponSheetInterface
 
 
     /**
+     * @param  int $quantity
+     * @return self Fluid Interface
+     */
+    public function setQuantity( $quantity ) {
+        $this->quantity = $quantity;
+        return $this;
+    }
+
+
+    /**
      * @param string $id
      * @return self Fluid Interface
      */

@@ -10,6 +10,11 @@ class CouponSheetAbstract implements CouponSheetInterface
     public $id;
 
     /**
+     * @var int|string
+     */
+    public $quantity;
+
+    /**
      * @var string
      */
     public $slug;
@@ -41,6 +46,14 @@ class CouponSheetAbstract implements CouponSheetInterface
      */
     public function getId() {
         return $this->id;
+    }
+
+    /**
+     * @return int
+     * @implements CouponSheetInterface
+     */
+    public function getQuantity() {
+        return $this->quantity;
     }
 
 
