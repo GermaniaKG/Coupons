@@ -22,6 +22,12 @@ interface CouponSheetInterface extends ValidCouponInterface
 
 
     /**
+     * @return int
+     */
+    public function getQuantity();
+
+
+    /**
      * @return DateTime
      */
     public function getValidFrom();
