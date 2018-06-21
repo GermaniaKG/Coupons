@@ -41,7 +41,8 @@ class PdoCouponSheetFactory
         RIGHT JOIN `{$coupons_table}` Coupons
         ON Coupons.coupon_sheet_id = Sheets.id
 
-        WHERE Sheets.id = :id
+        WHERE Sheets.id   = :id
+        OR    Sheets.slug = :id
         LIMIT 1";
 
         $this->stmt = $pdo->prepare( $sql );
