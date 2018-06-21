@@ -18,6 +18,7 @@ class PdoAllCouponSheets implements \Countable, \IteratorAggregate
         Sheets.id,
         Sheets.slug,
         Sheets.name,
+        Sheets.quantity,
         Sheets.valid_from,
         Sheets.valid_until,
         GROUP_CONCAT(Coupons.code) AS coupons
