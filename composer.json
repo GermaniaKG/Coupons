@@ -1,38 +1,46 @@
 {
-	"name": "germania-kg/coupons",
-	"description": "Interfaces, classes and traits for coupons",
+    "name": "germania-kg/coupons",
+    "description": "Interfaces, classes and traits for coupons",
 
-	"license": "proprietary",
-	"authors": [
-		{
-			"name": "Carsten Witt",
-			"email": "carstenwitt@germania-kg.de",
-			"role": "Developer"
-		}
-	],
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Carsten Witt",
+            "email": "carstenwitt@germania-kg.de",
+            "role": "Developer"
+        }
+    ],
 
-	"autoload": {
-		"psr-4": {
-			"Germania\\Coupons\\": "src/"
-		}
-	},
+    "autoload": {
+        "psr-4": {
+            "Germania\\Coupons\\": "src/"
+        }
+    },
 
-  "autoload-dev": {
-      "psr-4": { "tests\\": "tests/src" }
-  },
+    "autoload-dev": {
+        "psr-4": { "tests\\": "tests/src" }
+    },
 
-	"require": {
+    "require": {
+        "php": "^5.6|^7.0"
+    },
 
-	},
+    "suggest": {
+        "pimple/pimple": "The Dependecy Injection Container of choice",
+        "psr/container": "PSR Container"
+    },
 
-	"suggest": {
-		"pimple/pimple": "The Dependecy Injection Container of choice",
-		"psr/container": "PSR Container"
-	},
+    "require-dev": {
+        "psr/container": "^1.0",
+        "php-coveralls/php-coveralls": "^2.0",
+        "phpunit/phpunit": "^5.7|^6.0|^7.0"
+    },
 
-	"require-dev": {
-		"psr/container": "^1.0",
-		"php-coveralls/php-coveralls": "^2.0",
-		"phpunit/phpunit": "^5.7|^6.0"
-	}
+    "scripts": {
+            "phpunit": "phpunit",
+
+    "test": [
+        "@phpunit"
+        ]
+    }
 }
